@@ -1,3 +1,4 @@
+// entry point to content script
 window.addEventListener('beforeunload', onUnload)
 window.addEventListener('message', onMessageFromPage)
 
