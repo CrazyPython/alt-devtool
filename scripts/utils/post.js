@@ -1,9 +1,10 @@
 function post(type, payload) {
-  window.postMessage({
+  postMessage({
     type: type,
     payload: payload,
-    source: 'alt-devtools'
-  }, '*')
+    source: 'alt-devtools',
+    fromAltDevToolsWithWebWorker: true,
+  })
 }
 
 export default post

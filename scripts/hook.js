@@ -2,14 +2,6 @@
 window.addEventListener('beforeunload', onUnload)
 window.addEventListener('message', onMessageFromPage)
 
-const script = document.createElement('script')
-script.type = 'text/javascript'
-script.src = chrome.extension.getURL('dist/altif.js')
-script.onload = function () {
-  script.parentNode.removeChild(script)
-}
-document.documentElement.appendChild(script)
-
 function onUnload() {
   chrome.runtime.sendMessage({
     type: 'PAGE_UNLOADED'
@@ -35,6 +27,7 @@ function onMessageFromPage(event) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   window.postMessage({
     payload: request,
-    source: 'alt-hook'
+    source: 'alt-hook',
+    fromAltDevToolsWithWebWorker: true
   }, '*')
 })

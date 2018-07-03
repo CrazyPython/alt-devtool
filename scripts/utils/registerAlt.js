@@ -74,8 +74,7 @@ function onMessageFromHook(event) {
       // XXX I wish this used the file system API
   }
 }
-
-window.addEventListener('message', onMessageFromHook)
+self.ADTWW_onMessageFromHook = onMessageFromHook
 
 function registerAlt() {
   listeners.forEach(x => x.destroy())

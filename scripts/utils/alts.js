@@ -1,3 +1,5 @@
+// globalContext is the global variable. Since we're operating in a web worker, we'll be using `self`.
+const globalContext = self
 let idx = 0
 
 const alts = {
@@ -6,7 +8,7 @@ const alts = {
   },
 
   all() {
-    return window['goatslacker.github.io/alt/'] || window['alt.js.org']
+    return self['goatslacker.github.io/alt/'] || self['alt.js.org']
   },
 
   map(f) {
