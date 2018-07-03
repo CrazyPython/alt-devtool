@@ -54,13 +54,17 @@ module.exports = exports["default"];
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
+// entry point to script running inside the webpage
+
 var findAlt = _interopRequire(require("./utils/findAlt"));
 
 findAlt(100);
 
 },{"./utils/findAlt":4}],3:[function(require,module,exports){
+// globalContext is the global variable. Since we're operating in a web worker, we'll be using `self`.
 "use strict";
 
+var globalContext = self;
 var idx = 0;
 
 var alts = {
@@ -69,7 +73,7 @@ var alts = {
   },
 
   all: function all() {
-    return window["goatslacker.github.io/alt/"] || window["alt.js.org"];
+    return self["goatslacker.github.io/alt/"] || self["alt.js.org"];
   },
 
   map: function map(f) {
@@ -157,11 +161,11 @@ function parseStores() {
 "use strict";
 
 function post(type, payload) {
-  window.postMessage({
+  postMessage({
     type: type,
     payload: payload,
-    source: "alt-devtools"
-  }, "*");
+    source: "alt-devtools",
+    fromAltDevToolsWithWebWorker: true });
 }
 
 module.exports = post;
@@ -262,8 +266,7 @@ function onMessageFromHook(event) {
     // XXX I wish this used the file system API
   }
 }
-
-window.addEventListener("message", onMessageFromHook);
+self.ADTWW_onMessageFromHook = onMessageFromHook;
 
 function registerAlt() {
   listeners.forEach(function (x) {
@@ -319,11 +322,19 @@ function registerAlt() {
         })
       });
 
+      var data = undefined;
+
+      try {
+        data = JSON.stringify(payload.data);
+      } catch (e) {
+        console.warn("[alt-devtool] Could not serialize dispatch data.\n" + "Error message was:", e.message, "\n" + "Dispatched action was:", payload.action, "\n" + "Offending data was:", payload.data);
+      }
+
       post("DISPATCH", {
         alt: i,
         id: id,
         action: payload.details.id,
-        data: JSON.stringify(payload.data)
+        data: data
       });
 
       snapshots[id] = alt.takeSnapshot();
