@@ -8,7 +8,7 @@ import DevActions from './actions/DevActions'
 import React from 'react'
 
 // Create a connection to the background page
-const backgroundPageConnection = chrome.runtime.connect({
+const backgroundPageConnection = chrome.runtime.connect(chrome.runtime.id, {
   name: "panel"
 })
 
