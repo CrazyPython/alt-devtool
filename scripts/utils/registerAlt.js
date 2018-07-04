@@ -10,10 +10,6 @@ const snapshots = {}
 
 // handle messages from the hook
 function onMessageFromHook(event) {
-  if (event && event.source !== window) {
-    return
-  }
-
   const message = event.data
 
   if (typeof message !== 'object' || message === null || message.source !== 'alt-hook') {

@@ -192,10 +192,6 @@ var snapshots = {};
 
 // handle messages from the hook
 function onMessageFromHook(event) {
-  if (event && event.source !== window) {
-    return;
-  }
-
   var message = event.data;
 
   if (typeof message !== "object" || message === null || message.source !== "alt-hook") {

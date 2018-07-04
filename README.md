@@ -32,7 +32,7 @@ Run this:
 ```bash
 npm install --save-dev alt-devtool@crazypython/alt-devtool
 ```
-The package includes a `postinstall` script in its package.json. If debugging breaks after installing a new module, you should add `cd node_modules/alt-devtool && node postinstall.js"` to your own postinstall.
+The package includes a `postinstall` script in its package.json. If debugging breaks after installing a new module, you should add `node node_modules/alt-devtool/postinstall.js` to your own postinstall.
 
 > Extra Info: The script patches React Native chrome debugging's frontend. Note that this script can easily break if
 `node_modules/react-native/local-cli/server/util/debugger-ui/index.html` is modified in a React Native update. All it
