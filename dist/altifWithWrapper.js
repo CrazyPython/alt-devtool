@@ -7,7 +7,7 @@ function wrapWorkerOnMessageForAltDevTool(toWrap) {
                 // Worker not ready to receive Alt-DevTool messages.
             }
         } else {
-            return toWrap(...this.arguments)
+            return toWrap(message)
         }
     }
 }
@@ -15,8 +15,8 @@ function wrapWorkerOnMessageForAltDevTool(toWrap) {
  * Use it like this. You can include this function in your production build if you wish. Don't include altif.js in your
  * production build.
 onmessage = wrapWorkerOnMessageForAltDevTool(<your onMessage handler>)
- * The function filters out messages from the Alt Devtool, and forwards the rest to your callback.
- * If altif,js is not active, nothing will happen.
+ * The function filters out messages from Alt DevTools, and forwards the rest to your callback.
+ * If altif.js is not active, nothing will happen.
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
