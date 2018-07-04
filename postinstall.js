@@ -1,7 +1,7 @@
 const fs = require('fs');
-const WEB_WORKER_AGENT_PATH = 'node_modules/alt-devtool/dist/altifWithWrapper.js'
-const WEB_WORKER_PATH = 'node_modules/react-native/local-cli/server/util/debugger-ui/debuggerWorker.js'
-const DEBUGGED_PAGE_PATH = 'node_modules/react-native/local-cli/server/util/debugger-ui/index.html'
+const WEB_WORKER_AGENT_PATH = 'dist/altifWithWrapper.js'
+const WEB_WORKER_PATH = '.../react-native/local-cli/server/util/debugger-ui/debuggerWorker.js'
+const DEBUGGED_PAGE_PATH = '../react-native/local-cli/server/util/debugger-ui/index.html'
 
 function appendAfterMatch(path, regex, newText) {
     let fileContent = fs.readFileSync(path, 'utf8');
