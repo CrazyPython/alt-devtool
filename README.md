@@ -46,7 +46,7 @@ Run the postinstall script now. The shell script will run automatically every ti
 `npm run postinstall`
 
 #### Other Web Workers
-Include `dist/altif.js` inside your web worker, or paste it in at the top. It is a built file created by `npm run build-background`.
+Include `dist/altifWithWrapper.js` inside your web worker, or paste it in at the top. You'll need to call wrapWorkerOnMessageForDevTool() on your onmessage handler. It is a built file created by `npm run build-background`.
 
 Alternatively you can add `"alt-devtool": "crazypython/alt-devtool"` to your devDependencies and attempt to `require()`
 or `import` `alt-devtool/scripts/utils/altInterface.js`. That file is the entry point to Alt Devtool's agent.
