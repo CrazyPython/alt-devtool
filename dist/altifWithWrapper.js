@@ -7,7 +7,7 @@ function wrapWorkerOnMessageForAltDevTool(toWrap) {
                 // Worker not ready to receive Alt-DevTool messages.
             }
         } else {
-            return toWrap(...this.arguments)
+            return toWrap(message)
         }
     }
 }
