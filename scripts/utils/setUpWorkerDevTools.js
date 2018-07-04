@@ -1,8 +1,8 @@
 function wrapWorkerOnMessageForAltDevTool(toWrap) {
     return function(message) {
         if (message.data.fromAltDevToolsWithWebWorker === true) {
-            if(self.onMessageFromHook !== undefined) {
-                self.onMessageFromHook(message)
+            if(self.ADTWW_onMessageFromHook !== undefined) {
+                self.ADTWW_onMessageFromHook(message)
             } else {
                 // Worker not ready to receive Alt-DevTool messages.
             }
