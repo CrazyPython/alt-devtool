@@ -1,6 +1,6 @@
 const fs = require('fs');
 const WEB_WORKER_AGENT_PATH = 'dist/altifWithWrapper.js'
-const WEB_WORKER_PATH = '.../react-native/local-cli/server/util/debugger-ui/debuggerWorker.js'
+const WEB_WORKER_PATH = '../react-native/local-cli/server/util/debugger-ui/debuggerWorker.js'
 const DEBUGGED_PAGE_PATH = '../react-native/local-cli/server/util/debugger-ui/index.html'
 
 function appendAfterMatch(path, regex, newText) {
