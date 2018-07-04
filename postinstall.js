@@ -10,8 +10,8 @@ function appendAfterMatch(path, regex, newText) {
 }
 
 // make sure we don't insert the same code twice on different postinstalls
-const JS_FLAG = '/* @MODIFIED_BY_ADTWW_SCRIPT */'
-wasNotModifiedBefore = path => !fs.readFileSync(path, 'utf8').includes('MODIFIED_BY_ADTWW_SCRIPT')
+const JS_FLAG = '/* @MODIFIED_BY_ADTWW_SCRIPT_V01 */'
+wasNotModifiedBefore = path => !fs.readFileSync(path, 'utf8').includes('MODIFIED_BY_ADTWW_SCRIPT_V01')
 
 if (wasNotModifiedBefore(DEBUGGED_PAGE_PATH)) {
     appendAfterMatch(DEBUGGED_PAGE_PATH, /let worker;$/gm, 'function onPossibleMessageFromContentScript(event) {if (event.data.source == \'alt-hook\') {/* forward message to worker from content script*/let newObject = Object.assign(event.data);newObject.fromAltDevToolsWithWebWorker = true;worker.postMessage(event.data)}}')
@@ -20,8 +20,11 @@ if (wasNotModifiedBefore(DEBUGGED_PAGE_PATH)) {
 }
 
 if (wasNotModifiedBefore(WEB_WORKER_PATH)) {
-    appendAfterMatch(WEB_WORKER_PATH, /onmessage = .+$/gm, 'wrapWorkerOnMessageForAltDevTool(')
-    fs.writeFileSync(WEB_WORKER_PATH,
-      JS_FLAG + fs.readFileSync(WEB_WORKER_AGENT_PATH, 'utf8') + fs.readFileSync(WEB_WORKER_PATH, 'utf8') + ')'
-    )
+    const fileContent = fs.readFileSync(WEB_WORKER_PATH, 'utf8');
+    newFileContent = JS_FLAG +
+      fs.readFileSync(WEB_WORKER_AGENT_PATH, 'utf8') +
+      fileContent.replace(/onmessage = .+$/gm, 'onmessage = wrapWorkerOnMessageForAltDevTool((function() {')
+    // replace the last non-empty line so that we add a end parenthesis and move the semicolon to the end of the statement
+    newFileContent = newFileContent.replace(/[^\r\n]+(?=[\r\n]+$)/, '})());')
+    fs.writeFileSync(WEB_WORKER_PATH, newFileContent)
 }
