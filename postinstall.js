@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const WEB_WORKER_AGENT_PATH = 'dist/altifWithWrapper.js'
+const WEB_WORKER_AGENT_PATH = 'node_modules/alt-devtool/dist/altifWithWrapper.js'
 const WEB_WORKER_PATH = path.resolve('node_modules/react-native/local-cli/server/util/debugger-ui/debuggerWorker.js')
 const DEBUGGED_PAGE_PATH = path.resolve('node_modules/react-native/local-cli/server/util/debugger-ui/index.html')
 
